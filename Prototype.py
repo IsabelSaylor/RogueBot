@@ -25,20 +25,37 @@ for tile in TestField:
 
 def MovementSelection():
     choices = random.choice(['left', 'right', 'up', 'down'])
-    return choices
+    return "right"
 
 
 def checkSpotAvailibility():
-    Selection = MovementSelection()
-    pass
+    while True:
+        time.sleep(1)
+        Direction = MovementSelection()
+        if Direction == 'right':
+            for row_index, row in enumerate(TestField):
+                for col_index, tile in enumerate(row):
+                    if tile == 2:
+                        print("Player at: ", row_index, col_index)
 
-def MoveAction():
-    
-    for row_index, row in enumerate(TestField):
-        for col_index, tile in enumerate(row):
-            if tile == 2:
-                print("Player at: ", row_index, col_index)
-    
+                        target_row = row_index
+                        target_col = col_index + 1
+
+                        print("Target at: ", target_row, target_col)
+
+                        return target_row, target_col, row_index, col_index
+        break
+
+target_row_pos, target_col_pos, previous_row_index, previous_col_index = checkSpotAvailibility()
+
+
+def MoveAction(previous_row, previous_col, row, col):
+        TestField[row][col] = target_col_pos
+        print("-------------------")
+        for tile in TestField:
+            print(tile)
+
+MoveAction(previous_row_index, previous_col_index)
 
 def EnemyMoveDirection():
     pass
@@ -73,6 +90,3 @@ for row_index, row in enumerate(TestField):
             print("Player at: ", target_row, target_col)
             break
 """           
-
-for tile in TestField:
-    print(tile)
