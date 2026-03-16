@@ -23,6 +23,27 @@ player = 2
 for tile in TestField:
     print(tile)
 
+def MovementSelection():
+    choices = random.choice(['left', 'right', 'up', 'down'])
+    return choices
+
+
+def checkSpotAvailibility():
+    Selection = MovementSelection()
+    pass
+
+def MoveAction():
+    
+    for row_index, row in enumerate(TestField):
+        for col_index, tile in enumerate(row):
+            if tile == 2:
+                print("Player at: ", row_index, col_index)
+    
+
+def EnemyMoveDirection():
+    pass
+
+"""
 for row_index, row in enumerate(TestField):
     for col_index, tile in enumerate(row):
         if tile == 2:
@@ -51,7 +72,7 @@ for row_index, row in enumerate(TestField):
             TestField[target_row][target_col] = 2
             print("Player at: ", target_row, target_col)
             break
-            
+"""           
 
 for tile in TestField:
     print(tile)
