@@ -24,15 +24,17 @@ for tile in TestField:
     print(tile)
 
 def MovementSelection():
-    choices = random.choice(['left', 'right', 'up', 'down'])
-    return "right"
+    choices = random.choice(['Left', 'Right', 'Up', 'Down'])
+    return choices
 
+
+print(type(MovementSelection()))
 
 def checkSpotAvailibility():
     while True:
         time.sleep(1)
         Direction = MovementSelection()
-        if Direction == 'right':
+        if Direction == 'Right':
             for row_index, row in enumerate(TestField):
                 for col_index, tile in enumerate(row):
                     if tile == 2:
@@ -43,7 +45,22 @@ def checkSpotAvailibility():
 
                         print("Target at: ", target_row, target_col)
 
-                        return target_row, target_col, row_index, col_index, "right"
+                        return target_row, target_col, row_index, col_index, Direction
+        
+        if Direction == "Down":
+            for row_index, row in enumerate(TestField):
+                for col_index, tile in enumerate(row):
+                    if tile == 2:
+                        print("Player at: ", row_index, col_index)
+
+                        target_row = row_index + 1
+                        target_col = col_index
+
+                        print("Target at: ", target_row, target_col)
+
+                        return target_row, target_col, row_index, col_index, Direction
+                    
+
         break
 
 #X, Y, Desired_X, Desired_Y Positions, Last variable is the Direction in which the bot moves.
@@ -59,9 +76,20 @@ print(
       )
 
 def MoveAction(current_row, current_col, desired_row, desired_col, Direction):
-        if Direction == "right":
-            TestField[current_row][current_col] = current_col
-            TestField[desired_row][desired_col] = desired_col
+        
+        zewo = 0
+        little_bot = 2
+
+        if Direction == "Right":
+            TestField[current_row][current_col] = zewo
+            TestField[desired_row][desired_col] = little_bot
+            print("---------------------------------------------")
+            for tile in TestField:
+                print(tile)
+
+        if Direction == "Down":
+            TestField[current_row][current_col] = zewo
+            TestField[desired_row][desired_col] = little_bot
             print("---------------------------------------------")
             for tile in TestField:
                 print(tile)
