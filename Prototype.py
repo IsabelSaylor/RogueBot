@@ -104,8 +104,8 @@ def checkSpotAvailibility():
         
 
 #X, Y, Desired_X, Desired_Y Positions, Last variable is the Direction in which the bot moves.
-target_row_pos, target_col_pos, current_row_index, current_col_index, Direction = checkSpotAvailibility()
-
+#target_row_pos, target_col_pos, current_row_index, current_col_index, Direction = checkSpotAvailibility()
+'''
 print(
       "---------------------------------------------\n"
       "TargetRowPos: " + str(target_row_pos) + "\n"
@@ -114,7 +114,7 @@ print(
       "PreviousDirection: " + str(current_col_index) + "\n"
       "Direction: " + Direction
       )
-
+'''
 def MoveAction(current_row, current_col, desired_row, desired_col, Direction):
         
         zewo = 0
@@ -144,8 +144,10 @@ def MoveAction(current_row, current_col, desired_row, desired_col, Direction):
         if Direction == "left":
             TestField[current_row][current_col] = zewo
             TestField[desired_row][desired_col] = little_bot
+            for tile in TestField:
+                print(tile)
 
-MoveAction(current_row_index, current_col_index, target_row_pos, target_col_pos, Direction)
+
 
 def EnemyMoveDirection():
     pass
@@ -180,3 +182,13 @@ for row_index, row in enumerate(TestField):
             print("Player at: ", target_row, target_col)
             break
 """           
+
+while True:
+
+    MovementSelection()
+
+    time.sleep(1)
+
+    target_row_pos, target_col_pos, current_row_index, current_col_index, Direction = checkSpotAvailibility()
+    MoveAction(current_row_index, current_col_index, target_row_pos, target_col_pos, Direction)
+    
