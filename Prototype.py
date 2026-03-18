@@ -152,37 +152,6 @@ def MoveAction(current_row, current_col, desired_row, desired_col, Direction):
 def EnemyMoveDirection():
     pass
 
-"""
-for row_index, row in enumerate(TestField):
-    for col_index, tile in enumerate(row):
-        if tile == 2:
-            print("Player at: ", row_index, col_index)
-
-            target_row = row_index
-            target_col = col_index + 1
-            TestField[row_index][col_index] = 0
-
-            time.sleep(1)
-            if TestField[target_row][target_col] == 1:
-                print("Move Gets Blocked and Redrects.")
-                TestField[row_index][col_index] = 2
-                break
-
-            if TestField[target_row][target_col] == 3:
-                print("You Cannot here, Enemy is here")
-                TestField[row_index][col_index] = 2
-                break
-
-            if TestField[target_row][target_col] == 4:
-                print("item has been picked up")
-                TestField[target_row][target_col] = 2
-                break
-
-            TestField[target_row][target_col] = 2
-            print("Player at: ", target_row, target_col)
-            break
-"""           
-
 while True:
 
     MovementSelection()
