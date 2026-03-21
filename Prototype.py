@@ -10,9 +10,9 @@ Simulated Map
 """
 TestField = [
     [1, 1, 1, 1, 1, 1],
-    [1, 2, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 3, 1],
+    [1, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 1],
     [1, 0, 4, 0, 0, 1],
     [1, 1, 1, 1, 1, 1]
 ]
@@ -24,12 +24,21 @@ direction_deltas = {
     "Right":(0, 1)
 }
 
-player = 2
-enemy = 3
 
-for tile in TestField:
-    print(tile)
+class Entity:
+    
+    def __init__(self, name, hp, row, col, symbol):
+        self.name = name
+        self.hp = hp
+        self.row = row
+        self.col = col
+        self.symbol = symbol
 
+bot = Entity(name="Bot", hp=100, row=1, col=1, symbol=2)
+enemy = Entity(name="Enemy", hp=50, row=3, col=4, symbol=3)
+
+TestField[bot.row][bot.col] = bot.symbol
+TestField[enemy.row][enemy.col] = enemy.symbol
 
 def MovementSelection():
     return random.choice(list(direction_deltas.keys()))
@@ -43,20 +52,20 @@ def checkSpotAvailability():
 
         for row_index, row in enumerate(TestField):
             for col_index, tile in enumerate(row):
-                if tile == player:
+                if tile == bot.symbol:
                     target_row = row_index + delta_row
                     target_col = col_index + delta_col
 
                     if TestField[target_row][target_col] == 1:
                         print(f"Bot cannot move {Direction}! Retrying...")
-                        break
+                        break 
                     return target_row, target_col, row_index, col_index, Direction
 
   
 def MoveAction(current_row, current_col, desired_row, desired_col, Direction):
     
     TestField[current_row][current_col] = 0
-    TestField[desired_row][desired_col] = 2
+    TestField[desired_row][desired_col] = bot.symbol
     print(f"\nMoved {Direction}")
     print("---------------------------------------------")
     
@@ -70,7 +79,7 @@ def EnemyCheckSpotAvailability():
 
         for row_index, row in enumerate(TestField):
             for col_index, tile in enumerate(row):
-                if tile == enemy:
+                if tile == enemy.symbol:
                     target_row = row_index + delta_row
                     target_col = col_index + delta_col
 
@@ -83,17 +92,17 @@ def EnemyCheckSpotAvailability():
 def EnemyMoveAction(current_row, current_col, desired_row, desired_col, Direction):
     
     TestField[current_row][current_col] = 0
-    TestField[desired_row][desired_col] = 3
+    TestField[desired_row][desired_col] = enemy.symbol
     print(f"\nMoved {Direction}")
     print("---------------------------------------------")
     
 
-while True:
+while True: 
     time.sleep(1)
     target_row, target_col, current_row, current_col, Direction = checkSpotAvailability()
     target_row_enemy, target_col_enemy, current_row_enemy, current_col_enemy, Direction_enemy = EnemyCheckSpotAvailability()
 
     EnemyMoveAction(current_row_enemy, current_col_enemy, target_row_enemy, target_col_enemy, Direction_enemy)
-    MoveAction(current_row, current_col, target_row, target_col, Direction) 
+    MoveAction(current_row, current_col, target_row, target_col, Direction)
     for row in TestField:
         print(row)  
