@@ -24,21 +24,32 @@ direction_deltas = {
     "Right":(0, 1)
 }
 
+attack_options = ["hit", "block"]
+#weighted_attack_options = random.choices(attack_options, weights=())
 
 class Entity:
     
-    def __init__(self, name, hp, row, col, symbol):
+    def __init__(self, name, hp, row, col, symbol, defense):
         self.name = name
         self.hp = hp
         self.row = row
         self.col = col
         self.symbol = symbol
+        self.defense = defense
 
-bot = Entity(name="Bot", hp=100, row=1, col=1, symbol=2)
-enemy = Entity(name="Enemy", hp=50, row=3, col=4, symbol=3)
+    def DealDamage(self, defender, damage):
+        self.hp -= damage
+        pass
+
+    def TakeDamage(self, damage):
+        pass
+
+bot = Entity(name="Bot", hp=100, row=1, col=1, symbol=2, defense=5)
+enemy = Entity(name="Enemy", hp=50, row=3, col=4, symbol=3, defense=8)
 
 TestField[bot.row][bot.col] = bot.symbol
 TestField[enemy.row][enemy.col] = enemy.symbol
+
 
 def MovementSelection():
     return random.choice(list(direction_deltas.keys()))
@@ -65,6 +76,11 @@ def checkSpotAvailability():
 
                     return target_row, target_col, row_index, col_index, Direction
 
+
+def fightAction(bot, enemy):
+    print(f"{bot} is fighting {enemy}")
+    
+    pass
 
 def MoveAction(current_row, current_col, desired_row, desired_col, Direction):
     
