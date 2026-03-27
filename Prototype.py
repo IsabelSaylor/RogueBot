@@ -24,20 +24,21 @@ direction_deltas = {
     "Right":(0, 1)
 }
 
+defend_options = ["block", "take_damage"]
 attack_options = ["hit", "walk"]
 weighted_attack_options = random.choices(attack_options, weights=(6, 3))
 
-defend_options = ["block", "take_damage"]
 
 class Entity:
     
-    def __init__(self, name, hp, row, col, symbol, defense):
+    def __init__(self, name, hp, row, col, symbol, defense, hit_chance_self):
         self.name = name
         self.hp = hp
         self.row = row
         self.col = col
         self.symbol = symbol
         self.defense = defense
+        self.hit_chance_self = hit_chance_self
 
     def DealDamage(self, defender, damage):
         defender.TakeDamage(damage)
@@ -48,8 +49,8 @@ class Entity:
         print(f"{self.name} has taken {damage} Damage!")
         pass
 
-bot = Entity(name="Bot", hp=100, row=1, col=1, symbol=2, defense=5)
-enemy = Entity(name="Enemy", hp=50, row=3, col=4, symbol=3, defense=8)
+bot = Entity(name="Bot", hp=100, row=1, col=1, symbol=2, defense=5, hit_chance_self=7)
+enemy = Entity(name="Enemy", hp=50, row=3, col=4, symbol=3, defense=8, hit_chance_self=10)
 
 TestField[bot.row][bot.col] = bot.symbol
 TestField[enemy.row][enemy.col] = enemy.symbol
@@ -92,7 +93,9 @@ def fightAction(bot, enemy):
     bot_choice = weighted_attack_options
     enemy_choice = weighted_attack_options
 
+    
     if bot_choice == "hit":
+        weighted_defend_options = random.choices(defend_options, weights=())
         pass
 
     for row in TestField:
@@ -152,4 +155,4 @@ while True:
     EnemyMoveAction(current_row_enemy, current_col_enemy, target_row_enemy, target_col_enemy, Direction_enemy)
     
     for row in TestField:
-        print(row)  
+        print(row)
