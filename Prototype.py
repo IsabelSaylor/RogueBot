@@ -95,8 +95,12 @@ def fightAction(bot, enemy):
 
     
     if bot_choice == "hit":
-        weighted_defend_options = random.choices(defend_options, weights=())
-        pass
+        weighted_defend_options = random.choices(defend_options, weights=(enemy.defense, enemy.hit_chance_self))
+        if weighted_defend_options == "block":
+            print("Attack got blocked.")
+
+        if weighted_defend_options == "take_damage":
+            print("Damage has been taken.")
 
     for row in TestField:
         print(row)
