@@ -24,8 +24,10 @@ direction_deltas = {
     "Right":(0, 1)
 }
 
-attack_options = ["hit", "block", "evade"]
-weighted_attack_options = random.choices(attack_options, weights=(3, 6, 3))
+attack_options = ["hit", "walk"]
+weighted_attack_options = random.choices(attack_options, weights=(6, 3))
+
+defend_options = ["block", "take_damage"]
 
 class Entity:
     
@@ -87,9 +89,11 @@ def checkSpotAvailability():
 def fightAction(bot, enemy):
     print(f"{bot} is fighting {enemy}")
 
-    choice = weighted_attack_options
+    bot_choice = weighted_attack_options
+    enemy_choice = weighted_attack_options
 
-    print(choice)
+    if bot_choice == "hit":
+        pass
 
     for row in TestField:
         print(row)
