@@ -26,7 +26,7 @@ direction_deltas = {
 
 defend_options = ["block", "take_damage"]
 attack_options = ["hit", "walk"]
-weighted_attack_options = random.choices(attack_options, weights=(6, 3))
+weighted_attack_options = random.choices(attack_options, weights=(3, 6))
 
 
 class Entity:
@@ -41,6 +41,7 @@ class Entity:
         self.hit_chance_self = hit_chance_self
 
     def DealDamage(self, defender, damage):
+        print("damage is in fact being done")
         defender.TakeDamage(damage)
         pass
 
@@ -80,7 +81,8 @@ def checkSpotAvailability():
                         print(str(row_index) + " | " + str(col_index))
                         TestField[row_index][col_index] == bot.symbol
                         TestField[target_row][target_col] = enemy.symbol
-                        fightAction(bot.name, enemy.name)
+
+                        fightAction(bot, enemy)
 
                         break
 
@@ -88,19 +90,23 @@ def checkSpotAvailability():
 
 
 def fightAction(bot, enemy):
-    print(f"{bot} is fighting {enemy}")
+    print(f"{bot.name} is fighting {enemy.name}")
 
     bot_choice = weighted_attack_options
     enemy_choice = weighted_attack_options
 
     
     if bot_choice == "hit":
+
         weighted_defend_options = random.choices(defend_options, weights=(enemy.defense, enemy.hit_chance_self))
+        
         if weighted_defend_options == "block":
-            print("Attack got blocked.")
+            print(f"Enemy has {enemy.hp}! Attack was blocked!")
+            time.sleep(1)
 
         if weighted_defend_options == "take_damage":
-            print("Damage has been taken.")
+            bot.DealDamage(enemy, 5)
+            print(f"Enemy has {enemy.hp} HP left.")
 
     for row in TestField:
         print(row)
